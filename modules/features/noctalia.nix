@@ -66,12 +66,12 @@
 						center = [];
 						right = [
 							{
-								compactMode = false;
+								compactMode = true;
 								hideMode = "hidden";
 								hideWhenIdle = false;
 								id = "MediaMini";
 								maxWidth = 145;
-								panelShowAlbumArt = false;
+								panelShowAlbumArt = true;
 								scrollingMode = "hover";
 								showAlbumArt = true;
 								showArtistFirst = true;
@@ -79,7 +79,7 @@
 								showVisualizer = false;
 								textColor = "none";
 								useFixedWidth = false;
-								visualizerType = "linear";
+								visualizerType = "wave";
 							}
 							{
 								blacklist = [];
