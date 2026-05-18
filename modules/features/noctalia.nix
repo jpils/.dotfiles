@@ -76,7 +76,7 @@
 								showAlbumArt = true;
 								showArtistFirst = true;
 								showProgressRing = true;
-								showVisualizer = false;
+								showVisualizer = true;
 								textColor = "none";
 								useFixedWidth = false;
 								visualizerType = "wave";
