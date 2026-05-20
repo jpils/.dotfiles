@@ -154,6 +154,7 @@
 		alias ts = tmux new -s
 		alias tn = tmux-new
 		alias fg = job unfreeze
+		alias leonardo = ~/nixconf/leonardo.sh
       '';
     };
   };
