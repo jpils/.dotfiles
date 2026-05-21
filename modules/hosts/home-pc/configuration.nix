@@ -17,6 +17,7 @@
 			self.nixosModules.tmux-nu
 			self.nixosModules.nushell
 			self.nixosModules.gnome-integration
+			self.nixosModules.nix-ld
 
 			# user programs
 			self.nixosModules.user-apps
