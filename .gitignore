@@ -4,4 +4,4 @@ programs/extern/BigIP/*
 programs/qemu/images/EndeavourOS_Endeavour-2024.06.25.iso
 programs/firefox/*
 programs/extern/colbuilder/deps/chimera*.bin
-leonardo.sh
+leonardo.nh
