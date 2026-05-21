@@ -30,6 +30,12 @@
 			{ device = "/dev/disk/by-uuid/0752a460-46ab-4889-a9be-a8a7d4621676"; }
 		];
 
+		fileSystems."/Data" = {
+			device = "/dev/disk/by-uuid/32dd7340-dea7-47be-840f-737f02887e8c";
+			fsType = "ext4";
+			options = [ "defaults" "noatime" ];
+		};
+
 		networking.useDHCP = lib.mkDefault true;
 
 		nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
