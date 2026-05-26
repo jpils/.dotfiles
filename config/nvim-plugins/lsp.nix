@@ -49,26 +49,27 @@
 		})
 		vim.lsp.enable('rust_analyzer')
 
-vim.lsp.config('marksman', {
-  on_attach = lsp_zero.on_attach,
-  capabilities = capabilities,
-  -- Use initialization_options for server-start settings
-  options = {
-    initialization_options = {
-      core = {
-        title_from_heading = false,
-      },
-    },
-  },
-})
-
-vim.lsp.enable('marksman')
+		vim.lsp.config('marksman', {
+		  on_attach = lsp_zero.on_attach,
+		  capabilities = capabilities,
+		  -- Use initialization_options for server-start settings
+		  options = {
+			initialization_options = {
+			  core = {
+				title_from_heading = false,
+			  },
+			},
+		  },
+		})
+		vim.lsp.enable('marksman')
 
 		vim.lsp.config('nixd', {
 		  on_attach = lsp_zero.on_attach,
 		  capabilities = capabilities,
 		})
 		vim.lsp.enable('nixd')
+
+		vim.lsp.enable('pyright')
 
 		local cmp = require('cmp')
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }

@@ -11,5 +11,5 @@ if ($env.SSH_AUTH_SOCK? | is-empty) {
     }
 }
 
-print $"Logging into CINECA CA via ($email)..."
+print $"Logging into CINECA CA via ..."
 step ssh login $email --provisioner cineca-hpc
