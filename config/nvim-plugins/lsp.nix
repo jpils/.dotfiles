@@ -6,8 +6,8 @@
 		marksman
 		nil
 		nixd
-		pyright
-		rust-analyzer
+		#pyright
+		#rust-analyzer
 		texlab
 	];
 
