@@ -23,6 +23,8 @@
 	];
 
 	lua = /* lua */ ''
+		vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#a9a9a9', bg = 'NONE', italic = true })
+
 		local lsp_zero = require('lsp-zero')
 
 		lsp_zero.on_attach(function(client, bufnr)
@@ -38,6 +40,10 @@
 		  vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
 		  vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
 		  vim.keymap.set("i", "<A-k>", function() vim.lsp.buf.signature_help() end, opts)
+
+		  vim.keymap.set("n", "<leader>th", function()
+			  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			  end, opts)
 		end)
 
 		local cmp_nvim_lsp = require('cmp_nvim_lsp')
