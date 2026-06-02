@@ -49,6 +49,11 @@
         source ${zoxide-init}
         source ${carapace-init}
 
+		let cargo_bin = ("~/.cargo/bin" | path expand)
+        if ($cargo_bin | path exists) {
+          $env.PATH = ($env.PATH | prepend $cargo_bin)
+        }
+
 		# --- carapace ---
 		let carapace_completer = {|spans|
           carapace $spans.0 nushell ...$spans | from json
