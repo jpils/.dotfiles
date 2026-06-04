@@ -161,6 +161,7 @@
 		alias tn = tmux-new
 		alias fg = job unfreeze
 		alias leonardo = ~/nixconf/leonardo.nu
+		alias univie = nmcli connection up id 'univie' --ask
       '';
     };
   };

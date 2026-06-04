@@ -141,6 +141,11 @@
 					"Mod+9".set-column-width = "66.6%";
 					"Mod+0".set-column-width = "100%"; 
 
+					# screenshot settings
+					"Print".screenshot = _: {};
+					"Ctrl+Print".screenshot-screen = _: {};
+					"Alt+Print".screenshot-window = _: {};
+
 					# audio controls
 					"XF86AudioRaiseVolume" = _: {
 						props.allow-when-locked = true;
