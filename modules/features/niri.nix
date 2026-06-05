@@ -132,7 +132,8 @@
 					#"Mod+Shift+K".move-workspace-up = _: {};
 					
 					# view modes
-					"Mod+F".fullscreen-window = _: {};
+					"Mod+F".toggle-window-floating = _: {};
+					"Mod+Shift+F".fullscreen-window = _: {};
 					"Mod+Shift+C".center-column = _: {};
 					
 					# window size presets
@@ -201,7 +202,7 @@
 						default-column-width = { proportion = 0.5; };
 					}
 					{
-						matches = [{ title = "^Test App"; }];
+						matches = [{ title = "^Gnuplot"; }];
 						open-floating = true;
 					}
 				];
