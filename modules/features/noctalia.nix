@@ -411,7 +411,7 @@
 						criticalSoundFile = "";
 						normalSoundFile = "";
 						lowSoundFile = "";
-						excludedApps = "discord,firefox,chrome,chromium,edge";
+						excludedApps = "vesktop,firefox,chrome,chromium,edge";
 					};
 					enableMediaToast = false;
 					enableKeyboardLayoutToast = true;

@@ -93,16 +93,9 @@
 
 			# Performance / overlays / tweaking
 			mangohud
-			goverlay
+			#goverlay
 			gamescope
 			gamemode
-
-			# Streaming / capture / chat
-			discord
-			obs-studio
-
-			# Misc
-			r2modman
 		];
 
 		nixpkgs.config.allowUnfree = true;

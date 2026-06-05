@@ -5,7 +5,7 @@
 			sshfs
 			baobab
 			celluloid
-			discord
+			vesktop
 			evince
 			file-roller
 			geary              

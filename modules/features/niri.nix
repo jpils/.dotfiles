@@ -177,7 +177,7 @@
 
 					# application shortcuts
 					"Mod+W".spawn-sh = zenExe;
-					"Mod+D".spawn-sh = "discord";
+					"Mod+D".spawn-sh = "vesktop";
 					"Mod+T".spawn-sh = lib.getExe pkgs.telegram-desktop;
 					
 					# File Manager
@@ -194,7 +194,7 @@
 						default-column-width = { proportion = 0.7; };
 					}
 					{
-						matches = [{ app-id = "^discord$"; }];
+						matches = [{ app-id = "^vesktop$"; }];
 						default-column-width = { proportion = 0.5; };
 					}
 					{
