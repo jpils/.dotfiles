@@ -196,10 +196,20 @@
 					{
 						matches = [{ app-id = "^vesktop$"; }];
 						default-column-width = { proportion = 0.5; };
+						open-on-workspace = "3";
 					}
 					{
 						matches = [{ app-id = "^org.telegram.desktop$"; }];
 						default-column-width = { proportion = 0.5; };
+						open-on-workspace = "3";
+					}
+					{
+						matches = [{ app-id = "(?i)spotify"; }]; 
+						open-on-workspace = "3";
+					}
+					{
+						matches = [{ app-id = "^steam$"; }];
+						open-on-workspace = "4";
 					}
 					{
 						matches = [{ title = "^Gnuplot"; }];
