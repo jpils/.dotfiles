@@ -212,6 +212,10 @@
 						open-on-workspace = "4";
 					}
 					{
+						matches = [{ title = "^org.gnome.Nautilus"; }];
+						open-floating = true;
+					}
+					{
 						matches = [{ title = "^Gnuplot"; }];
 						open-floating = true;
 					}
