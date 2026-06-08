@@ -212,7 +212,7 @@
 						open-on-workspace = "4";
 					}
 					{
-						matches = [{ title = "^org.gnome.Nautilus"; }];
+						matches = [{ app-id = "^org.gnome.Nautilus"; }];
 						open-floating = true;
 					}
 					{
