@@ -1,0 +1,8 @@
+keys:
+  - &homePc age16c4f0j5dhxxwuk9w53rwt3ymxe03pctjwmsm5yysxanjnsremcqs05w7at
+
+creation_rules:
+  - path_regex: secrets\.yaml$
+    key_groups:
+      - age:
+        - *homePc

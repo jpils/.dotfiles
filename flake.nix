@@ -7,10 +7,10 @@
 
 		wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
-	    	disko.url = "github:nix-community/disko";
-	    	disko.inputs.nixpkgs.follows = "nixpkgs";
+		disko.url = "github:nix-community/disko";
+		disko.inputs.nixpkgs.follows = "nixpkgs";
 
-	    	preservation.url = "github:nix-community/preservation";
+		preservation.url = "github:nix-community/preservation";
 	  
 		sops-nix.url = "github:Mic92/sops-nix";
 		sops-nix.inputs.nixpkgs.follows = "nixpkgs";

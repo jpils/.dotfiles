@@ -21,11 +21,14 @@
 			self.nixosModules.nushell
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
+			self.nixosModules.sops
 
 			# user programs
 			self.nixosModules.user-apps
 			self.nixosModules.scientific-suite
 		];
+
+		sops.secrets.jay-password.neededForUsers = true;
 
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
@@ -122,7 +125,7 @@
 
 		services.accounts-daemon.enable = true;
 		users.users.jay = {
-			initialPassword = "12345";
+			hashedPasswordFile = config.sops.secrets.jay-password.path;
 			isNormalUser = true; 
 			extraGroups = [ "wheel" "networkmanager" "docker" "input" "audio" ];
 			shell = pkgs.zsh;
