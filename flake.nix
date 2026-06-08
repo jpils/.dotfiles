@@ -7,6 +7,12 @@
 
 		wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
+	    	disko.url = "github:nix-community/disko";
+	    	disko.inputs.nixpkgs.follows = "nixpkgs";
+
+	    	preservation.url = "github:nix-community/preservation";
+	  
+
 		zen-browser = {
 			url = "github:youwen5/zen-browser-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
