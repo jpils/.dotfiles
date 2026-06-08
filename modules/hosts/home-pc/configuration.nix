@@ -1,12 +1,15 @@
 {self, inputs, ...}: {
 	flake.nixosModules.homePcConfiguration = { config, lib, pkgs, inputs, ... }: let
-		custom-elegant-sddm = pkgs.elegant-sddm.override {
-			themeConfig.General.background = "${self.wallpaper}";
+		custom-sddm-theme = pkgs.sddm-astronaut.override {
+			themeConfig.Background = "${self.wallpaper}";
 		};
 	in {
 		imports = [
 			# hardware
 			self.nixosModules.homePcHardware
+			self.nixosModules.homePcDisko
+			self.nixosModules.preservation
+
 			# system programs
 			self.nixosModules.nvidia-10
 			self.nixosModules.gaming
@@ -40,8 +43,8 @@
 		services.displayManager.sddm = {
 			enable = true;
 			wayland.enable = true;
-			theme = "Elegant";
-			extraPackages = [ custom-elegant-sddm ];
+			theme = "sddm-astronaut-theme";
+			extraPackages = [ custom-sddm-theme ];
 		};
 		services.displayManager = {
 			enable = true;
@@ -117,14 +120,13 @@
 			serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
 		};
 
-		virtualisation.docker.enable = true;
+		services.accounts-daemon.enable = true;
 		users.users.jay = {
+			initialPassword = "12345";
 			isNormalUser = true; 
 			extraGroups = [ "wheel" "networkmanager" "docker" "input" "audio" ];
-			shell = self.packages.${pkgs.system}.zsh;
+			shell = pkgs.zsh;
 		};
-
-		virtualisation.libvirtd.enable = true;
 
 		hardware.uinput.enable = true;
 		users.groups.uinput.members = [ "jay" ];
@@ -150,7 +152,7 @@
 			tldr
 			unzip
 			wget
-			custom-elegant-sddm
+			custom-sddm-theme
 		];
 
 		fonts.packages = with pkgs; [
@@ -169,13 +171,12 @@
 			'';
 		};
 
-		system.stateVersion = "23.11"; # Did you read the comment?
+		system.stateVersion = "26.05";
 
 		nix.settings = {
 			experimental-features = [ "nix-command" "flakes" ];
 			substituters = [
 				"https://cache.nixos.org/"
-				"https://hyprland.cachix.org"
 				"https://nix-community.cachix.org"
 			];
 		};
