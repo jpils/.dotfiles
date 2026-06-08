@@ -13,7 +13,9 @@
 
 		services.gnome.evolution-data-server.enable = true;
 		services.gnome.gnome-online-accounts.enable = true;
+
 		services.gnome.gnome-keyring.enable = true;
+		security.pam.services.sddm.enableGnomeKeyring = true;
 
 		xdg.portal = {
 			enable = true;
