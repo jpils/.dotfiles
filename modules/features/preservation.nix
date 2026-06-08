@@ -13,6 +13,7 @@
 	      directories = [
 	        "/etc/nixos"
 			"/etc/ssh"
+			"/etc/shadow"
 			"/var/db/sudo"
 			"/var/lib/systemd/random-seed"
 			"/var/lib/systemd/timers"
@@ -38,6 +39,7 @@
 			  ".local/state/wireplumber"
 			  ".local/share/nvim/harpoon"
 			  ".local/share/zoxide"
+			  ".local/share/keyrings"
 	          ".ssh"
 			  ".mozilla"
 			  ".zen"
