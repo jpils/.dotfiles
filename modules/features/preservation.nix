@@ -1,4 +1,3 @@
-# preservation.nix
 { self, inputs, ... }: {
 	flake.nixosModules.preservation = { config, pkgs, ... }:
 	{
@@ -14,8 +13,7 @@
 					"/etc/nixos"
 					"/etc/ssh"
 					"/var/db/sudo"
-					"/var/lib/systemd/random-seed"
-					"/var/lib/systemd/timers"
+					"/var/lib/systemd"
 					"/var/lib/bluetooth"
 					"/var/log"
 					{
@@ -41,6 +39,7 @@
 						".config/jj"
 						".config/noctalia"
 						".config/zen"
+						".config/sops"
 						".local/share/Steam"
 						".local/share/keyrings"
 						".local/share/nvim/harpoon"

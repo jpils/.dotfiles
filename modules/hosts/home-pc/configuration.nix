@@ -28,8 +28,6 @@
 			self.nixosModules.scientific-suite
 		];
 
-		sops.secrets.jay-password.neededForUsers = true;
-
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
 
