@@ -1,12 +1,15 @@
 {self, inputs, ...}: {
 	flake.nixosModules.laptopConfiguration = { config, lib, pkgs, inputs, ... }: let
-		custom-elegant-sddm = pkgs.elegant-sddm.override {
-			themeConfig.General.background = "${self.wallpaper}";
+		custom-sddm-theme = pkgs.sddm-astronaut.override {
+			themeConfig.Background = "${self.wallpaper}";
 		};
 	in {
 		imports = [
 			# hardware
 			self.nixosModules.laptopHardware
+			self.nixosModules.laptopDisko
+			self.nixosModules.preservation
+
 			# system programs
 			self.nixosModules.ghostty
 			self.nixosModules.niri
@@ -39,8 +42,8 @@
 		services.displayManager.sddm = {
 			enable = true;
 			wayland.enable = true;
-			theme = "Elegant";
-			extraPackages = [ custom-elegant-sddm ];
+			theme = "sddm-astronaut-theme";
+			extraPackages = [ custom-sddm-theme ];
 		};
 		services.displayManager = {
 			enable = true;
@@ -134,6 +137,7 @@
 
 		virtualisation.docker.enable = true;
 		users.users.jay = {
+			initialPassword = "12345";
 			isNormalUser = true; 
 			extraGroups = [ "wheel" "networkmanager" "docker" "input" "audio" ];
 			shell = self.packages.${pkgs.system}.zsh;
@@ -163,7 +167,7 @@
 			unzip
 			ripgrep
 			wget
-			custom-elegant-sddm
+			custom-sddm-theme
 		];
 
 		fonts.packages = with pkgs; [
