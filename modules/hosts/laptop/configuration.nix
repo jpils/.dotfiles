@@ -19,6 +19,7 @@
 			self.nixosModules.nushell
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
+			self.nixosModules.sops
 
 			# user programs
 			self.nixosModules.user-apps
@@ -137,7 +138,7 @@
 
 		virtualisation.docker.enable = true;
 		users.users.jay = {
-			initialPassword = "12345";
+			hashedPasswordFile = config.sops.secrets.jay-password.path;
 			isNormalUser = true; 
 			extraGroups = [ "wheel" "networkmanager" "docker" "input" "audio" ];
 			shell = self.packages.${pkgs.system}.zsh;
