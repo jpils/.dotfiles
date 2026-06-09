@@ -187,7 +187,7 @@
 			'';
 		};
 
-		system.stateVersion = "23.11"; # Did you read the comment?
+		system.stateVersion = "26.05";
 
 		nix.settings = {
 			experimental-features = [ "nix-command" "flakes" ];
