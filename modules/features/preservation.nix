@@ -34,11 +34,13 @@
 				users.jay = {
 					directories = [
 						".cache/evolution"
-						".cache/noctali"
+						".cache/geary"
+						".cache/noctalia"
 						".cache/noctalia-qs"
 						".cache/zen"
 						".config/dconf"
 						".config/evolution"
+						".config/geary"
 						".config/goa-1.0"
 						".config/jj"
 						".config/noctalia"
