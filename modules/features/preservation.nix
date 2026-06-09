@@ -33,7 +33,8 @@
 
 				users.jay = {
 					directories = [
-						".cache/noctalia"
+						".cache/evolution"
+						".cache/noctali"
 						".cache/noctalia-qs"
 						".cache/zen"
 						".config/dconf"
