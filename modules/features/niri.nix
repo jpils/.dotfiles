@@ -199,6 +199,11 @@
 						open-on-workspace = "3";
 					}
 					{
+						matches = [{ app-id = "^geary$"; }];
+						default-column-width = { proportion = 0.7; };
+						open-on-workspace = "3";
+					}
+					{
 						matches = [{ app-id = "^org.telegram.desktop$"; }];
 						default-column-width = { proportion = 0.5; };
 						open-on-workspace = "3";
@@ -213,6 +218,10 @@
 					}
 					{
 						matches = [{ app-id = "^org.gnome.Nautilus"; }];
+						open-floating = true;
+					}
+					{
+						matches = [{ app-id = "^org.gnome.Calendar"; }];
 						open-floating = true;
 					}
 					{

@@ -216,7 +216,7 @@
 					weatherTaliaMascotAlways = false;
 					useFahrenheit = false;
 					use12hourFormat = false;
-					showWeekNumberInCalendar = false;
+					showWeekNumberInCalendar = true;
 					showCalendarEvents = true;
 					showCalendarWeather = true;
 					analogClockInCalendar = false;

@@ -4,6 +4,7 @@
 		wl-clipboard
 		nordic             # GTK Theme (kept here so the login screen can use it)
 		papirus-nord       # Icon Theme (kept here so the login screen can use it)
+		gnome-online-accounts-gtk
 	];
 
 		services.gvfs.enable = true;
