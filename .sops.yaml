@@ -1,6 +1,7 @@
 keys:
   - &homePc age1npt3mv7e9tuvjeh3q2w3xshnythxh9zcfe8nrytlxhu08gudx4jsa4fg56
   - &laptop age1e3nnlfgf6ruqpzezylqgmj5h06hag9mvaxx897vkcl4qqg5dd4nsfqrjax
+  - &workstation age1ldkmk93eqytg8lvv00vx5t47tuxrmf6gfz0u9q696fkc0fmxcymsnypll2
 
 creation_rules:
   - path_regex: secrets/secrets.yaml$
@@ -8,3 +9,4 @@ creation_rules:
       - age:
         - *homePc
         - *laptop
+        - *workstation
