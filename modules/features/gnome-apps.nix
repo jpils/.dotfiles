@@ -2,8 +2,8 @@
 	flake.nixosModules.gnome-integration = { pkgs, lib, ... }: {
 	environment.systemPackages = with pkgs; [
 		wl-clipboard
-		nordic             # GTK Theme (kept here so the login screen can use it)
-		papirus-nord       # Icon Theme (kept here so the login screen can use it)
+		nordic             
+		papirus-nord      
 		gnome-online-accounts-gtk
 	];
 
