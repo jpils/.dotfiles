@@ -225,6 +225,10 @@
 						open-floating = true;
 					}
 					{
+						matches = [{ app-id = "^nm-openconnect-auth-dialog"; }];
+						open-floating = true;
+					}
+					{
 						matches = [{ title = "^Gnuplot"; }];
 						open-floating = true;
 					}
