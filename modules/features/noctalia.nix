@@ -219,7 +219,7 @@
 					showWeekNumberInCalendar = true;
 					showCalendarEvents = true;
 					showCalendarWeather = true;
-					analogClockInCalendar = false;
+					analogClockInCalendar = true;
 					firstDayOfWeek = -1;
 					hideWeatherTimezone = false;
 					hideWeatherCityName = false;
