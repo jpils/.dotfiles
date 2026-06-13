@@ -27,10 +27,14 @@
 			self.nixosModules.scientific-suite
 		];
 
-		services.logind = {
-			lidSwitch = "suspend";
-			lidSwitchExternalPower = "suspend";
-			lidSwitchDocked = "ignore";
+		services.logind.settings.Login = {
+			HandleLidSwitch = "hibernate";
+			HandleLidSwitchExternalPower = "suspend-then-hibernate";
+			HandleLidSwitchDocked = "ignore";
+		};
+
+		systemd.sleep.settings.Sleep = {
+			HibernateDelaySec = 240;
 		};
 
 		boot.loader.systemd-boot.enable = true;
