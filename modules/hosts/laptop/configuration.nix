@@ -20,11 +20,18 @@
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
+			self.nixosModules.swaylock-effects
 
 			# user programs
 			self.nixosModules.user-apps
 			self.nixosModules.scientific-suite
 		];
+
+		services.logind = {
+			lidSwitch = "suspend";
+			lidSwitchExternalPower = "suspend";
+			lidSwitchDocked = "ignore";
+		};
 
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;

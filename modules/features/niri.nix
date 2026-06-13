@@ -127,10 +127,6 @@
 					"Mod+Shift+3".move-column-to-workspace = 3;
 					"Mod+Shift+4".move-column-to-workspace = 4;
 					
-					# relative workspace navigation (buggy with noctalia)
-					#"Mod+Shift+J".move-workspace-down = _: {};
-					#"Mod+Shift+K".move-workspace-up = _: {};
-					
 					# view modes
 					"Mod+F".toggle-window-floating = _: {};
 					"Mod+Shift+F".fullscreen-window = _: {};
@@ -182,6 +178,9 @@
 					
 					# File Manager
 					"Mod+E".spawn-sh = "nautilus";
+
+					# lock screen
+					"Mod+Ctrl+C".spawn = "swaylock";
 				};
 
 				window-rules = [
