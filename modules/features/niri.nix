@@ -176,7 +176,7 @@
 					"Mod+T".spawn-sh = lib.getExe pkgs.telegram-desktop;
 					
 					"Mod+E".spawn-sh = "nautilus";
-					"Mod+S".spawn-sh = "walker";
+					"Mod+S".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
 
 					# lock screen
 					"Mod+Ctrl+C".spawn = "swaylock";
