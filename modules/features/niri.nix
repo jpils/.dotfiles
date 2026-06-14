@@ -95,7 +95,6 @@
 				};
 
 				binds = {
-					"Mod+S".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
 					"Mod+Return".spawn-sh = ghosttyExe;
 					"Mod+C".close-window = _: {};
 					
@@ -176,8 +175,8 @@
 					"Mod+D".spawn-sh = "vesktop";
 					"Mod+T".spawn-sh = lib.getExe pkgs.telegram-desktop;
 					
-					# File Manager
 					"Mod+E".spawn-sh = "nautilus";
+					"Mod+S".spawn-sh = "walker";
 
 					# lock screen
 					"Mod+Ctrl+C".spawn = "swaylock";
