@@ -149,6 +149,11 @@
 			}
 		}
 
+		# stop sshfs to freeze terminal on connection loss
+		def sshfs [...args: string] {
+			^sshfs -o reconnect -o ServerAliveInterval=2 -o ServerAliveCountMax=3 -o ConnectTimeout=5 ...$args
+		}
+
 		# --- ALIASES ---
 		alias cd = z
 		alias fg = job unfreeze
