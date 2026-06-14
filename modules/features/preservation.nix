@@ -60,6 +60,7 @@
 						".local/share/goa-1.0"
 						".local/share/keyrings"
 						".local/share/nvim/harpoon"
+						".local/share/nvim/undo"
 						".local/share/uv"
 						".local/share/zoxide"
 						".local/state/wireplumber"
