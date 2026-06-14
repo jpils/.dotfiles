@@ -182,8 +182,8 @@
 					lockScreenBlur = 0.1;
 					lockScreenTint = 0.04;
 					keybinds = {
-						keyUp = [ "Up" ];
-						keyDown = [ "Down" ];
+						keyUp = [ "Ctrl+P" ];
+						keyDown = [ "Ctrl+N" ];
 						keyLeft = [ "Left" ];
 						keyRight = [ "Right" ];
 						keyEnter = [ "Return" "Enter" ];
