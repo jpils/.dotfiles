@@ -10,91 +10,124 @@
 	];
 
 	plugins = with pkgs.vimPlugins; [
-		cmp-buffer
-		cmp_luasnip
-		cmp-nvim-lsp
-		cmp-nvim-lua
-		cmp-path
-		lsp-zero-nvim
-		nvim-cmp
+		blink-cmp
 		nvim-lspconfig
 	];
 
 	lua = /* lua */ ''
 		vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#a9a9a9', bg = 'NONE', italic = true })
 
-		local lsp_zero = require('lsp-zero')
+		-- 1. Strip inner token backgrounds to ensure complete transparency inside floats
+		local function apply_seamless_highlights()
+		  local groups = {
+		    'BlinkCmpLabel', 'BlinkCmpLabelDetail', 'BlinkCmpLabelDescription',
+		    'BlinkCmpKind', 'BlinkCmpSource', 'BlinkCmpNormal',
+		    '@markup.block.markdown', 'markdownCodeBlock', 'markdownCode'
+		  }
+		  for _, group in ipairs(groups) do
+		    vim.api.nvim_set_hl(0, group, { bg = 'NONE' })
+		  end
+		end
 
-		lsp_zero.on_attach(function(client, bufnr)
-		  local opts = {buffer = bufnr, remap = false}
-
-		  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-		  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-		  vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
-		  vim.keymap.set("n", "<leader>dd", function() vim.diagnostic.open_float() end, opts)
-		  vim.keymap.set("n", "<leader>dn", function() vim.diagnostic.goto_next() end, opts)
-		  vim.keymap.set("n", "<leader>dp", function() vim.diagnostic.goto_prev() end, opts)
-		  vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-		  vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
-		  vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-		  vim.keymap.set("i", "<A-k>", function() vim.lsp.buf.signature_help() end, opts)
-
-		  vim.keymap.set("n", "<leader>th", function()
-			  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-			  end, opts)
-		end)
-
-		local cmp_nvim_lsp = require('cmp_nvim_lsp')
-		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		vim.lsp.config('rust_analyzer', {
-		  on_attach = lsp_zero.on_attach,
-		  capabilities = capabilities,
+		apply_seamless_highlights()
+		vim.api.nvim_create_autocmd('ColorScheme', {
+		  pattern = '*',
+		  callback = apply_seamless_highlights,
 		})
+
+		-- 2. Global Interceptor for LSP Floats (Forces hover/diagnostics to inherit your main editor bg)
+		local orig_open_floating_preview = vim.lsp.util.open_floating_preview
+		vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
+		  opts = opts or {}
+		  opts.border = opts.border or 'rounded'
+		  opts.max_width = opts.max_width or math.floor(vim.o.columns * 0.85)
+		  -- Re-maps the floating window's core colors to your editor's standard background
+		  opts.winhighlight = opts.winhighlight or 'Normal:Normal,FloatBorder:Normal'
+		  
+		  local bufnr, winnr = orig_open_floating_preview(contents, syntax, opts)
+		  if winnr then
+		    vim.wo[winnr].wrap = true
+		  end
+		  return bufnr, winnr
+		end
+
+		-- Diagnostic UI configs
+		vim.diagnostic.config({
+		  float = { border = 'rounded' },
+		})
+
+		-- 3. Initialize blink.cmp with layout restrictions
+		require('blink.cmp').setup({
+		  keymap = { preset = 'default' },
+
+		  completion = {
+		    menu = {
+		      border = 'rounded',
+		      -- Force completion menu box and border lines to blend into the main window background
+		      winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+		      
+		      -- Strips out everything except the icon and clean name item
+		      draw = {
+		        columns = { { "kind_icon" }, { "label" } },
+		      },
+		    },
+		    documentation = {
+		      auto_show = true,
+		      auto_show_delay_ms = 200,
+		      window = {
+		        border = 'rounded',
+		        winhighlight = 'Normal:Normal,FloatBorder:Normal,Search:None',
+		      },
+		    },
+		  },
+
+		  signature = {
+		    enabled = true,
+		    window = {
+		      border = 'rounded',
+		      winhighlight = 'Normal:Normal,FloatBorder:Normal,Search:None',
+		    },
+		  },
+		})
+
+		-- Global LSP Attachment Hook
+		vim.api.nvim_create_autocmd('LspAttach', {
+		  desc = 'LSP keymaps and actions',
+		  callback = function(event)
+		    local opts = { buffer = event.buf, remap = false }
+
+		    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+		    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+		    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+		    vim.keymap.set("n", "<leader>dd", function() vim.diagnostic.open_float() end, opts)
+		    vim.keymap.set("n", "<leader>dn", function() vim.diagnostic.goto_next() end, opts)
+		    vim.keymap.set("n", "<leader>dp", function() vim.diagnostic.goto_prev() end, opts)
+		    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+		    vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
+		    vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+
+		    vim.keymap.set("n", "<leader>th", function()
+		      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		    end, opts)
+		  end,
+		})
+
+		-- Native Server Configurations
+		vim.lsp.config('rust_analyzer', {})
 		vim.lsp.enable('rust_analyzer')
 
 		vim.lsp.config('marksman', {
-		  on_attach = lsp_zero.on_attach,
-		  capabilities = capabilities,
-		  -- Use initialization_options for server-start settings
 		  options = {
 			initialization_options = {
-			  core = {
-				title_from_heading = false,
-			  },
+			  core = { title_from_heading = false },
 			},
 		  },
 		})
 		vim.lsp.enable('marksman')
 
-		vim.lsp.config('nixd', {
-		  on_attach = lsp_zero.on_attach,
-		  capabilities = capabilities,
-		})
+		vim.lsp.config('nixd', {})
 		vim.lsp.enable('nixd')
 
 		vim.lsp.enable('pyright')
-
-		local cmp = require('cmp')
-		local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-		require('luasnip.loaders.from_vscode').lazy_load()
-
-		cmp.setup({
-		  sources = {
-			{name = 'path'},
-			{name = 'nvim_lsp'},
-			{name = 'nvim_lua'},
-			{name = 'luasnip', keyword_length = 2},
-			{name = 'buffer', keyword_length = 3},
-		  },
-		  formatting = lsp_zero.cmp_format(),
-		  mapping = cmp.mapping.preset.insert({
-			['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-			['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-			['<C-h>'] = cmp.mapping.confirm({ select = true }),
-			['<C-Space>'] = cmp.mapping.complete(),
-		  }),
-		})
 	'';
 }
