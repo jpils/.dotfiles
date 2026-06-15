@@ -197,6 +197,10 @@
 						open-on-workspace = "3";
 					}
 					{
+						matches = [{ title = "^Ovito"; }];
+						default-column-width = { proportion = 0.7; };
+					}
+					{
 						matches = [{ app-id = "^geary$"; }];
 						default-column-width = { proportion = 0.7; };
 						open-on-workspace = "3";
