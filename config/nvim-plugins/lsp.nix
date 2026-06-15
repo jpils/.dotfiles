@@ -58,15 +58,16 @@
 
 		-- 3. Initialize blink.cmp with layout restrictions
 		require('blink.cmp').setup({
-		  keymap = { preset = 'default' },
+		  -- Map Ctrl+h to accept the suggestion
+		  keymap = {
+		    preset = 'default',
+		    ['<C-h>'] = { 'accept', 'fallback' },
+		  },
 
 		  completion = {
 		    menu = {
 		      border = 'rounded',
-		      -- Force completion menu box and border lines to blend into the main window background
 		      winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
-		      
-		      -- Strips out everything except the icon and clean name item
 		      draw = {
 		        columns = { { "kind_icon" }, { "label" } },
 		      },
