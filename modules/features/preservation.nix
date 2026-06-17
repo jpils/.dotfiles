@@ -34,6 +34,7 @@
 				users.jay = {
 					directories = [
 						".cache/direnv"
+						".cache/rattler"
 						".cache/evolution"
 						".cache/geary"
 						".cache/noctalia"

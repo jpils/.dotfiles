@@ -25,6 +25,7 @@
 			vlc
 			xournalpp
 			zip
+			wl-mirror
 
 			inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 	    ];
