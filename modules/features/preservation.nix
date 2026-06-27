@@ -34,11 +34,11 @@
 				users.jay = {
 					directories = [
 						".cache/direnv"
-						".cache/rattler"
 						".cache/evolution"
 						".cache/geary"
 						".cache/noctalia"
 						".cache/noctalia-qs"
+						".cache/rattler"
 						".cache/spotify"
 						".cache/uv"
 						".cache/zen"
@@ -61,6 +61,7 @@
 						".local/share/goa-1.0"
 						".local/share/keyrings"
 						".local/share/nvim/harpoon"
+						".local/share/nvim/undo"
 						".local/share/uv"
 						".local/share/zoxide"
 						".local/state/wireplumber"

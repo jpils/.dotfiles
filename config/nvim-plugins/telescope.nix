@@ -10,8 +10,13 @@
     ];
 
     lua = /* lua */ ''
-        vim.opt.undofile = false   
-        vim.opt.undolevels = 2000  
+        local undodir = vim.fn.stdpath("data") .. "/undo"
+        if vim.fn.isdirectory(undodir) == 0 then
+            vim.fn.mkdir(undodir, "p")
+        end
+        vim.opt.undodir = undodir
+        vim.opt.undofile = true
+        vim.opt.undolevels = 1000
 
         require("telescope").setup({
             extensions = {
@@ -26,6 +31,7 @@
             }
         })
         
+        -- Load extensions
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("undo") 
 
@@ -46,6 +52,7 @@
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end)
 
+        -- Undo picker map (Ctrl+r or Ctrl+Enter to revert, Enter to yank)
         vim.keymap.set('n', '<leader>u', '<cmd>Telescope undo<cr>', { 
             desc = "Undo History" 
         })
