@@ -1,0 +1,11 @@
+{
+  "lastChangelogVersion": "0.79.8",
+  "theme": "dark",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "git:github.com/JuliusBrussee/caveman@25d22f864ad68cc447a4cb93aefde918aa4aec9f"
+  ],
+  "enableSkillCommands": true
+}

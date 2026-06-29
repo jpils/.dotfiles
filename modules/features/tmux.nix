@@ -23,6 +23,7 @@
 # Set prefix to Space (C-Space)
 				unbind C-b
 				set -g prefix C-Space
+				setw -g mode-keys vi
 				bind C-Space send-prefix
 
 # Core Settings
