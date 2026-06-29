@@ -65,6 +65,7 @@
 						".local/share/zoxide"
 						".local/state/wireplumber"
 						".mozilla"
+						".pi"
 						".ssh"
 						".steam"
 						".step"

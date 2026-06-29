@@ -2,6 +2,7 @@
 
 	flake.nixosModules.user-apps = { pkgs, ... }: {
 	    users.users.jay.packages = with pkgs; [
+			pi-coding-agent
 			sshfs
 			baobab
 			celluloid
