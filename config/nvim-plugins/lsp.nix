@@ -119,7 +119,7 @@
 
 		vim.lsp.config('marksman', {
 		  options = {
-			initialization_options = {
+			init_options = {
 			  core = { title_from_heading = false },
 			},
 		  },
@@ -129,6 +129,24 @@
 		vim.lsp.config('nixd', {})
 		vim.lsp.enable('nixd')
 
+		vim.lsp.config('pyright', {
+		  before_init = function(_, config)
+			local root = config.root_dir
+			if not root then return end
+
+			local pixi_python = vim.fn.glob(root .. '/.pixi/envs/*/bin/python', false, true)[1]
+			local venv_python = root .. '/.venv/bin/python'
+			local python = pixi_python
+			  or (vim.fn.executable(venv_python) == 1 and venv_python)
+			  or nil
+
+			if python then
+			  config.settings = config.settings or {}
+			  config.settings.python = config.settings.python or {}
+			  config.settings.python.pythonPath = python
+			end
+		  end,
+		})
 		vim.lsp.enable('pyright')
 	'';
 }
