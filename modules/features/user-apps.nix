@@ -6,6 +6,7 @@
 			install -m 600 -o jay -g users ${../../config/pi/settings.json} /home/jay/.pi/agent/settings.json
 			install -m 600 -o jay -g users ${../../config/pi/APPEND_SYSTEM.md} /home/jay/.pi/agent/APPEND_SYSTEM.md
 			install -m 600 -o jay -g users ${../../config/pi/extensions/confirm-file-mutations.ts} /home/jay/.pi/agent/extensions/confirm-file-mutations.ts
+			install -m 600 -o jay -g users ${../../config/pi/extensions/modal-editor.ts} /home/jay/.pi/agent/extensions/modal-editor.ts
 			install -m 600 -o jay -g users ${../../config/pi/themes/jay-dark.json} /home/jay/.pi/agent/themes/jay-dark.json
 		'';
 
