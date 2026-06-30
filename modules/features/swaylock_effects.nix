@@ -57,7 +57,7 @@
 
             lockTimeout = lib.mkOption {
                 type = lib.types.int;
-                default = 30;
+                default = 300;
                 description = "Seconds before locking.";
             };
 
