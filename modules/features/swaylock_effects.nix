@@ -43,9 +43,9 @@
                 ExecStart = ''
                     ${pkgs.swayidle}/bin/swayidle -w \
                     timeout 300 '${swaylock-wrapped}/bin/swaylock -f' \
-                    timeout 360 '${pkgs.systemd}/bin/systemctl suspend-then-hibernate' \
                     before-sleep '${swaylock-wrapped}/bin/swaylock -f'
                 '';
+				#timeout 360 '${pkgs.systemd}/bin/systemctl suspend-then-hibernate' \
                 Restart = "always";
                 RestartSec = 1;
             };

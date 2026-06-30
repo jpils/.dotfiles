@@ -69,23 +69,15 @@ function bashMutationAllowed(command: string, cwd: string): boolean {
 
 export default function confirmFileMutations(pi: ExtensionAPI) {
 	pi.on("tool_call", async (event, ctx) => {
-		if (!["write", "edit", "bash"].includes(event.toolName)) return undefined;
+		// Never prompt for shell commands. Pi has no built-in permission popups;
+		// this extension only gates file writes/edits outside trusted config paths.
+		if (!["write", "edit"].includes(event.toolName)) return undefined;
 
 		const target = summarizeInput(event.toolName, event.input as Record<string, unknown>);
-		if ((event.toolName === "write" || event.toolName === "edit") && isAllowedMutationPath(target, ctx.cwd)) return undefined;
-		if (event.toolName === "bash") {
-			if (!bashMayMutate(target)) return undefined;
-			if (bashMutationAllowed(target, ctx.cwd)) return undefined;
-		}
+		if (isAllowedMutationPath(target, ctx.cwd)) return undefined;
 
-		const title =
-			event.toolName === "bash"
-				? "Allow mutating shell command?"
-				: `Allow ${event.toolName} to modify file?`;
-		const message =
-			event.toolName === "bash"
-				? `This shell command may change files or system state.\n\n${target}`
-				: target;
+		const title = `Allow ${event.toolName} to modify file?`;
+		const message = target;
 
 		if (!ctx.hasUI) {
 			return { block: true, reason: `${event.toolName} blocked: no UI for confirmation` };
