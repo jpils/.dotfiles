@@ -15,6 +15,8 @@
 					"/var/db/sudo"
 					"/var/lib/systemd"
 					"/var/lib/bluetooth"
+					"/var/lib/cups"
+					"/var/cache/cups"
 					"/var/log"
 					{
 						directory = "/var/lib/nixos";
@@ -25,6 +27,7 @@
 				];
 
 				files = [
+					"/etc/printcap"
 					{
 						file = "/etc/machine-id";
 						inInitrd = true;

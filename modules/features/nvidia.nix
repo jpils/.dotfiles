@@ -10,15 +10,24 @@
 		hardware.nvidia = {
 			modesetting.enable = true;
 
-			powerManagement.enable = false;
+			# Required for reliable suspend/resume with proprietary NVIDIA.
+			# Enables nvidia-suspend/resume units and preserves VRAM allocations.
+			powerManagement.enable = true;
 			powerManagement.finegrained = false;
 
 			open = false;
 
 			nvidiaSettings = true;
 
+			# Store the VRAM image on persistent disk; root may be tmpfs.
+			moduleParams.nvidia.NVreg_TemporaryFilePath = "/persistent/var/tmp/nvidia";
+
 			package = config.boot.kernelPackages.nvidiaPackages.stable;
 		};
+
+		systemd.tmpfiles.rules = [
+			"d /persistent/var/tmp/nvidia 1777 root root -"
+		];
 
 		environment.sessionVariables = {
 			WLR_NO_HARDWARE_CURSORS = "1";

@@ -21,6 +21,7 @@
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
+			self.nixosModules.swaylock-effects
 
 			# user programs
 			self.nixosModules.user-apps
@@ -39,6 +40,11 @@
 		services.power-profiles-daemon.enable = true;
 		services.upower.enable = true;
 		services.system76-scheduler.settings.cfsProfiles.enable = true;
+
+		jay.swaylock-effects = {
+			suspend = true;
+			hibernate = false;
+		};
 
 		services.xserver.enable = true;
 		services.displayManager.sddm = {
