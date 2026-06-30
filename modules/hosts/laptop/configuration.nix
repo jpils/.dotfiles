@@ -37,6 +37,11 @@
 			HibernateDelaySec = 240;
 		};
 
+		jay.swaylock-effects = {
+			suspend = true;
+			hibernate = true;
+		};
+
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
 

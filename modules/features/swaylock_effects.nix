@@ -1,5 +1,7 @@
 { self, ... }: {
-    flake.nixosModules.swaylock-effects = { pkgs, ... }: let
+    flake.nixosModules.swaylock-effects = { config, lib, pkgs, ... }: let
+        cfg = config.jay.swaylock-effects;
+
         swaylockConfig = pkgs.writeText "swaylock-config" ''
             image=${self.wallpaper}
             scaling=fill
@@ -29,25 +31,62 @@
         swaylock-wrapped = pkgs.writeShellScriptBin "swaylock" ''
             exec ${pkgs.swaylock-effects}/bin/swaylock --config ${swaylockConfig} "$@"
         '';
+
+        sleepCommand =
+            if cfg.hibernate then
+                "${pkgs.systemd}/bin/systemctl suspend-then-hibernate"
+            else
+                "${pkgs.systemd}/bin/systemctl suspend";
+
+        sleepTimeoutLine = lib.optionalString cfg.suspend ''
+                    timeout ${toString cfg.sleepTimeout} '${sleepCommand}' \
+        '';
     in {
-        security.pam.services.swaylock = {};
+        options.jay.swaylock-effects = {
+            suspend = lib.mkOption {
+                type = lib.types.bool;
+                default = true;
+                description = "Whether swayidle should suspend after the idle timeout.";
+            };
 
-        environment.systemPackages = [ swaylock-wrapped ];
+            hibernate = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Use suspend-then-hibernate instead of plain suspend.";
+            };
 
-        systemd.user.services.swayidle = {
-            description = "Idle management daemon";
-            wantedBy = [ "graphical-session.target" ];
-            after = [ "graphical-session.target" ];
+            lockTimeout = lib.mkOption {
+                type = lib.types.int;
+                default = 30;
+                description = "Seconds before locking.";
+            };
 
-            serviceConfig = {
-                ExecStart = ''
-                    ${pkgs.swayidle}/bin/swayidle -w \
-                    timeout 300 '${swaylock-wrapped}/bin/swaylock -f' \
-                    before-sleep '${swaylock-wrapped}/bin/swaylock -f'
-                '';
-				#timeout 360 '${pkgs.systemd}/bin/systemctl suspend-then-hibernate' \
-                Restart = "always";
-                RestartSec = 1;
+            sleepTimeout = lib.mkOption {
+                type = lib.types.int;
+                default = 360;
+                description = "Seconds before suspend or suspend-then-hibernate.";
+            };
+        };
+
+        config = {
+            security.pam.services.swaylock = {};
+
+            environment.systemPackages = [ swaylock-wrapped ];
+
+            systemd.user.services.swayidle = {
+                description = "Idle management daemon";
+                wantedBy = [ "graphical-session.target" ];
+                after = [ "graphical-session.target" ];
+
+                serviceConfig = {
+                    ExecStart = ''
+                        ${pkgs.swayidle}/bin/swayidle -w \
+                        timeout ${toString cfg.lockTimeout} '${swaylock-wrapped}/bin/swaylock -f' \
+${sleepTimeoutLine}                        before-sleep '${swaylock-wrapped}/bin/swaylock -f'
+                    '';
+                    Restart = "always";
+                    RestartSec = 1;
+                };
             };
         };
     };

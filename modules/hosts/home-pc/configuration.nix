@@ -41,6 +41,11 @@
 		services.upower.enable = true;
 		services.system76-scheduler.settings.cfsProfiles.enable = true;
 
+		jay.swaylock-effects = {
+			suspend = true;
+			hibernate = false;
+		};
+
 		services.xserver.enable = true;
 		services.displayManager.sddm = {
 			enable = true;
