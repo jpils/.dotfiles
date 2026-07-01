@@ -43,6 +43,7 @@
 
 		jay.swaylock-effects = {
 			lockTimeout = 300;
+			monitorOffTimeout = 360;
 			suspendTimeout = 2100;
 			suspend = true;
 			hibernate = false;

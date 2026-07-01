@@ -38,6 +38,10 @@
             else
                 "${pkgs.systemd}/bin/systemctl suspend";
 
+        monitorOffTimeoutLine = lib.optionalString (cfg.monitorOffTimeout != null) ''
+                    timeout ${toString cfg.monitorOffTimeout} '${pkgs.niri}/bin/niri msg action power-off-monitors' \
+        '';
+
         sleepTimeoutLine = lib.optionalString cfg.suspend ''
                     timeout ${toString cfg.suspendTimeout} '${sleepCommand}' \
         '';
@@ -61,6 +65,12 @@
                 description = "Seconds before locking.";
             };
 
+            monitorOffTimeout = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+                description = "Seconds before powering off monitors via niri DPMS. Null disables.";
+            };
+
             suspendTimeout = lib.mkOption {
                 type = lib.types.int;
                 default = 360;
@@ -82,7 +92,7 @@
                     ExecStart = ''
                         ${pkgs.swayidle}/bin/swayidle -w \
                         timeout ${toString cfg.lockTimeout} '${swaylock-wrapped}/bin/swaylock -f' \
-${sleepTimeoutLine}                        before-sleep '${swaylock-wrapped}/bin/swaylock -f'
+${monitorOffTimeoutLine}${sleepTimeoutLine}                        before-sleep '${swaylock-wrapped}/bin/swaylock -f'
                     '';
                     Restart = "always";
                     RestartSec = 1;
