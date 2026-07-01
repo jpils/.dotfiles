@@ -142,10 +142,23 @@
         }]
 
 		# --- FUNCTIONS ---
-		def tmux-new [] {
-			let session = (sesh list | fzf ${fzf_style})
-			if not ($session | is-empty) {
+		def tn [...query: string] {
+			let q = ($query | str join " ")
+
+			let session = (
+				do -i {
+					sesh list --hide-duplicates
+					| fzf ${fzf_style} --ansi --query $q --preview 'sesh preview {}'
+				}
+				| str trim
+			)
+
+			if ($session | is-empty) { return }
+
+			if ($env.TMUX? | default "" | is-empty) {
 				sesh connect $session
+			} else {
+				sesh connect --switch $session
 			}
 		}
 
@@ -163,7 +176,6 @@
 		alias la = ls -a
 		alias lla = ls -la
 		alias ts = tmux new -s
-		alias tn = tmux-new
 		alias fg = job unfreeze
 		alias leonardo = ~/nixconf/leonardo.nu
 		alias univie = nmcli connection up id 'univie'
