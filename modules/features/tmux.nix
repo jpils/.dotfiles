@@ -14,7 +14,6 @@
 	};
 
 	perSystem = { pkgs, self', ... }: let
-# Helper to create a tmux wrapper with a given shell
 		mkTmux = { shellPath }: inputs.wrapper-modules.wrappers.tmux.wrap {
 			inherit pkgs;
 			plugins = with pkgs.tmuxPlugins; [ nord sensible yank ];
@@ -49,6 +48,9 @@
 			configAfter = ''
 				bind-key x kill-pane
 				set -g detach-on-destroy off
+				set -g history-limit 100000
+				set -sg escape-time 10
+				set -g focus-events on
 				bind -n M-H previous-window
 				bind -n M-L next-window
 				bind -r ^ last-window
@@ -56,6 +58,16 @@
 				bind -r j select-pane -D
 				bind -r h select-pane -L
 				bind -r l select-pane -R
+				bind | split-window -h -c "#{pane_current_path}"
+				bind - split-window -v -c "#{pane_current_path}"
+				bind c new-window -c "#{pane_current_path}"
+				bind -r H resize-pane -L 5
+				bind -r J resize-pane -D 5
+				bind -r K resize-pane -U 5
+				bind -r L resize-pane -R 5
+				bind s choose-tree -Zs
+				bind g display-popup -E -w 90% -h 80% -d "#{pane_current_path}" "${shellPath}"
+				bind G display-popup -E -w 90% -h 80% -d "#{pane_current_path}" "jj st; exec ${shellPath}"
 				set-option -g status-interval 5
 				set-option -g automatic-rename on
 				set-option -g automatic-rename-format '#{b:pane_current_path}'
