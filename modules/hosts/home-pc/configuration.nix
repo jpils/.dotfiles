@@ -1,7 +1,14 @@
 {self, inputs, ...}: {
 	flake.nixosModules.homePcConfiguration = { config, lib, pkgs, inputs, ... }: let
+		sddm-blurred-wallpaper = pkgs.runCommand "sddm-blurred-wallpaper.png" { nativeBuildInputs = [ pkgs.imagemagick ]; } ''
+			magick ${self.wallpaper} -blur 0x7 -blur 0x7 -blur 0x7 $out
+		'';
 		custom-sddm-theme = pkgs.sddm-astronaut.override {
-			themeConfig.Background = "${self.wallpaper}";
+			themeConfig = {
+				Background = "${sddm-blurred-wallpaper}";
+				PartialBlur = "false";
+				FullBlur = "false";
+			};
 		};
 	in {
 		imports = [
