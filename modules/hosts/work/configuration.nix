@@ -42,6 +42,8 @@
 		services.system76-scheduler.settings.cfsProfiles.enable = true;
 
 		jay.swaylock-effects = {
+			lockTimeout = 300;
+			suspendTimeout = 3900;
 			suspend = true;
 			hibernate = false;
 		};

@@ -39,7 +39,7 @@
                 "${pkgs.systemd}/bin/systemctl suspend";
 
         sleepTimeoutLine = lib.optionalString cfg.suspend ''
-                    timeout ${toString cfg.sleepTimeout} '${sleepCommand}' \
+                    timeout ${toString cfg.suspendTimeout} '${sleepCommand}' \
         '';
     in {
         options.jay.swaylock-effects = {
@@ -61,7 +61,7 @@
                 description = "Seconds before locking.";
             };
 
-            sleepTimeout = lib.mkOption {
+            suspendTimeout = lib.mkOption {
                 type = lib.types.int;
                 default = 360;
                 description = "Seconds before suspend or suspend-then-hibernate.";

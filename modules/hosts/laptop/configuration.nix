@@ -38,6 +38,8 @@
 		};
 
 		jay.swaylock-effects = {
+			lockTimeout = 300;
+			suspendTimeout = 360;
 			suspend = true;
 			hibernate = true;
 		};
