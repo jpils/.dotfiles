@@ -1,5 +1,19 @@
 { self, inputs, ... }: {
-	flake.nixosModules.gnome-integration = { pkgs, lib, ... }: {
+	flake.nixosModules.gnome-integration = { pkgs, lib, ... }: let
+		gtkCalendarCss = pkgs.writeText "gtk-calendar.css" ''
+			/* GNOME Calendar: all-day/multiday event text is too dark on Nordic. */
+			event,
+			event * {
+				color: #ECEFF4; /* Nord 6 */
+			}
+
+			/* Timed entries were already OK; keep them theme-derived. */
+			event.timed,
+			event.timed * {
+				color: var(--view-fg-color);
+			}
+		'';
+	in {
 	environment.systemPackages = with pkgs; [
 		wl-clipboard
 		nordic             
@@ -27,6 +41,11 @@
 		environment.sessionVariables = {
 			GTK_THEME = "Nordic";
 		};
+
+		system.activationScripts.gtkCalendarCss.text = ''
+			install -d -m 700 -o jay -g users /home/jay/.config/gtk-4.0
+			install -m 600 -o jay -g users ${gtkCalendarCss} /home/jay/.config/gtk-4.0/gtk.css
+		'';
 
 		programs.dconf.profiles.user.databases = [{
 			settings = {
