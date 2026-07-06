@@ -3,6 +3,12 @@
 	flake.nixosModules.user-apps = { pkgs, ... }: {
 		services.pcscd.enable = true;
 
+		environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
+
+		programs.ssh.askPassword = "${pkgs.openssh-askpass}/libexec/gtk-ssh-askpass";
+
+		programs.browserpass.enable = true;
+
 		programs.git = {
 			enable = true;
 			config = {
@@ -36,6 +42,7 @@
 
 	    users.users.jay.packages = with pkgs; [
 			baobab
+			browserpass
 			celluloid
 			evince
 			file-roller
