@@ -1,11 +1,16 @@
 { self, inputs, ... }:{
 
-	flake.nixosModules.user-apps = { pkgs, ... }: {
+	flake.nixosModules.user-apps = { pkgs, ... }: let
+		ssh-askpass-notify = pkgs.writeShellScriptBin "ssh-askpass-notify" ''
+			${pkgs.libnotify}/bin/notify-send "SSH / YubiKey" "$1"
+			exit 0
+		'';
+	in {
 		services.pcscd.enable = true;
 
 		environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
-		programs.ssh.askPassword = "${pkgs.openssh-askpass}/libexec/gtk-ssh-askpass";
+		programs.ssh.askPassword = "${ssh-askpass-notify}/bin/ssh-askpass-notify";
 
 		programs.browserpass.enable = true;
 
