@@ -50,6 +50,10 @@
 						".config/evolution"
 						".config/geary"
 						".config/goa-1.0"
+						{
+							directory = ".config/gnupg";
+							mode = "0700";
+						}
 						".config/jj"
 						".config/noctalia"
 						".config/sops"
@@ -67,7 +71,12 @@
 						".local/share/uv"
 						".local/share/zoxide"
 						".local/state/wireplumber"
+						{
+							directory = ".gnupg";
+							mode = "0700";
+						}
 						".mozilla"
+						".password-store"
 						".pi"
 						".ssh"
 						".steam"
@@ -85,6 +94,15 @@
 				};
 			};
 		};
+
+		system.activationScripts.gnupgPermissions.text = ''
+			chmod 700 /home/jay/.gnupg 2>/dev/null || true
+			chmod 700 /home/jay/.config/gnupg 2>/dev/null || true
+			find /home/jay/.gnupg -type f -exec chmod 600 {} + 2>/dev/null || true
+			find /home/jay/.gnupg -type d -exec chmod 700 {} + 2>/dev/null || true
+			chown -R jay:users /home/jay/.gnupg /home/jay/.config/gnupg 2>/dev/null || true
+		'';
+
 		systemd.suppressedSystemUnits =  [ "systemd-machine-id-commit.service" ];
 	};
 }

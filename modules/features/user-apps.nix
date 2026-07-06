@@ -1,6 +1,18 @@
 { self, inputs, ... }:{
 
 	flake.nixosModules.user-apps = { pkgs, ... }: {
+		services.pcscd.enable = true;
+
+		programs.gnupg.agent = {
+			enable = true;
+			enableSSHSupport = true;
+			pinentryPackage = pkgs.pinentry-gnome3;
+			settings = {
+				default-cache-ttl = 600;
+				max-cache-ttl = 7200;
+			};
+		};
+
 		system.activationScripts.pi-agent-config.text = ''
 			install -d -m 700 -o jay -g users /home/jay/.pi/agent/extensions /home/jay/.pi/agent/themes
 			install -m 600 -o jay -g users ${../../config/pi/settings.json} /home/jay/.pi/agent/settings.json
@@ -12,31 +24,35 @@
 		'';
 
 	    users.users.jay.packages = with pkgs; [
-			pi-coding-agent
-			sshfs
 			baobab
 			celluloid
-			vesktop
 			evince
 			file-roller
 			geary              
 			gnome-calculator
 			gnome-calendar    
 			gnome-text-editor
+			gnupg
 			loupe
 			mission-center
 			mpv
 			nautilus
 			networkmanagerapplet
+			pass
+			pi-coding-agent
 			spotify
+			sshfs
 			step-cli
 			sushi
 			telegram-desktop
 			tree
+			vesktop
 			vlc
+			wl-mirror
+			yubioath-flutter
+			yubikey-manager
 			xournalpp
 			zip
-			wl-mirror
 
 			inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 	    ];
