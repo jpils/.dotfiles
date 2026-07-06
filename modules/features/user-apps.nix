@@ -8,8 +8,6 @@
 	in {
 		services.pcscd.enable = true;
 
-		environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
-
 		programs.ssh.askPassword = "${ssh-askpass-notify}/bin/ssh-askpass-notify";
 
 		programs.browserpass.enable = true;
