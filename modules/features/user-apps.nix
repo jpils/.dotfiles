@@ -3,6 +3,17 @@
 	flake.nixosModules.user-apps = { pkgs, ... }: {
 		services.pcscd.enable = true;
 
+		programs.git = {
+			enable = true;
+			config = {
+				user = {
+					name = "jpils";
+					email = "pilsj00@gmail.com";
+				};
+				init.defaultBranch = "master";
+			};
+		};
+
 		programs.gnupg.agent = {
 			enable = true;
 			enableSSHSupport = true;
