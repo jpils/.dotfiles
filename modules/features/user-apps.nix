@@ -12,6 +12,13 @@
 
 		programs.browserpass.enable = true;
 
+		system.activationScripts.browserpass-native-host.text = ''
+			install -d -m 700 -o jay -g users /home/jay/.mozilla/native-messaging-hosts /home/jay/.zen/native-messaging-hosts
+			ln -sf ${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json /home/jay/.mozilla/native-messaging-hosts/com.github.browserpass.native.json
+			ln -sf ${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json /home/jay/.zen/native-messaging-hosts/com.github.browserpass.native.json
+			chown -h jay:users /home/jay/.mozilla/native-messaging-hosts/com.github.browserpass.native.json /home/jay/.zen/native-messaging-hosts/com.github.browserpass.native.json
+		'';
+
 		programs.git = {
 			enable = true;
 			config = {
