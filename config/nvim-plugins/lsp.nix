@@ -114,7 +114,15 @@
 		})
 
 		-- Native Server Configurations
-		vim.lsp.config('rust_analyzer', {})
+		vim.lsp.config('rust_analyzer', {
+		  settings = {
+		    ['rust-analyzer'] = {
+		      files = {
+		        exclude = { '.pixi', '.direnv', '.git' },
+		      },
+		    },
+		  },
+		})
 		vim.lsp.enable('rust_analyzer')
 
 		vim.lsp.config('marksman', {
