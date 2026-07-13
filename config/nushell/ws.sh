@@ -127,12 +127,16 @@ project_dir="$(find_upwards Cargo.toml || true)"
 
 session="$(sanitize_session_name "$(basename "$workspace")")"
 
-if tmux has-session -t "=$session" 2>/dev/null; then
+attach_session() {
   if [[ -n "${TMUX:-}" ]]; then
     exec tmux switch-client -t "=$session"
   else
     exec tmux attach-session -t "=$session"
   fi
+}
+
+if tmux has-session -t "=$session" 2>/dev/null; then
+  attach_session
 fi
 
 bash_bin="$(command -v bash)"
@@ -160,7 +164,13 @@ bacon_cmd='if command -v direnv >/dev/null 2>&1; then direnv exec . bash -lc "ba
 pi_cmd='if command -v direnv >/dev/null 2>&1; then direnv exec . bash -lc "if command -v pi >/dev/null 2>&1; then pi -c; fi; exec ${SHELL:-sh}"; elif command -v pi >/dev/null 2>&1; then pi -c; exec ${SHELL:-sh}; else exec ${SHELL:-sh}; fi'
 shell_cmd='if command -v direnv >/dev/null 2>&1; then exec direnv exec . ${SHELL:-sh}; else exec ${SHELL:-sh}; fi'
 
-tmux new-session -d -s "$session" -n editor -c "$workdir" "$(shell_command "$editor_cmd")"
+if ! tmux new-session -d -s "$session" -n editor -c "$workdir" "$(shell_command "$editor_cmd")"; then
+  if tmux has-session -t "=$session" 2>/dev/null; then
+    attach_session
+  fi
+
+  exit 1
+fi
 
 if [[ -n "$project_dir" ]] && has_workspace_command bacon; then
   tmux new-window -d -t "=$session:" -n bacon -c "$project_dir" "$(shell_command "$bacon_cmd")"
@@ -172,8 +182,4 @@ tmux select-layout -t "$shell_pane" even-horizontal
 tmux select-pane -t "$shell_pane"
 tmux select-window -t "=$session:1"
 
-if [[ -n "${TMUX:-}" ]]; then
-  exec tmux switch-client -t "=$session"
-else
-  exec tmux attach-session -t "=$session"
-fi
+attach_session

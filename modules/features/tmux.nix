@@ -14,9 +14,22 @@
 	};
 
 	perSystem = { pkgs, self', ... }: let
+		cleanupTmuxResurrect = pkgs.writeShellScriptBin "cleanup-tmux-resurrect" ''
+			set -euo pipefail
+
+			dir="''${1:-$HOME/.local/state/tmux/resurrect}"
+			keep="''${2:-10}"
+
+			[ -d "$dir" ] || exit 0
+
+			ls -1t "$dir"/tmux_resurrect_*.txt 2>/dev/null \
+				| tail -n +$((keep + 1)) \
+				| xargs -r rm -f --
+		'';
+
 		mkTmux = { shellPath }: inputs.wrapper-modules.wrappers.tmux.wrap {
 			inherit pkgs;
-			plugins = with pkgs.tmuxPlugins; [ nord sensible yank ];
+			plugins = with pkgs.tmuxPlugins; [ nord sensible yank resurrect continuum ];
 
 			configBefore = ''
 # Set prefix to Space (C-Space)
@@ -38,6 +51,24 @@
 				set -ag terminal-overrides ",xterm-256color:RGB,xterm-ghostty:RGB"
 				set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
 				set -g allow-passthrough on
+
+# Status Line
+				set-option -g status-interval 5
+				set -g status-left '#[bold]#{=/#{e|/|:#{client_width},4}/...:#S} '
+				set -g status-left-length 120
+				set -g status-right '%a %d-%m-%Y   %H:%M#[default]'
+				set -g status-right-length 40
+				set -g status-position top
+				set -g window-status-current-format '  #I: #W'
+				set -g window-status-format '  #I: #W'
+				set -g window-status-last-style 'fg=white, bg=black'
+
+# Session Persistence
+				set -g @resurrect-dir '$HOME/.local/state/tmux/resurrect'
+				set -g @continuum-restore 'off'
+				set -g @continuum-save-interval '5'
+				set -g @resurrect-processes '"~pi -c->pi -c" "~bacon->direnv exec . bacon" "~yazi->direnv exec . yazi" "~nvim->NVIM_RESTORE_SESSION=1 nvim"'
+				set -g @resurrect-hook-post-save-all '${cleanupTmuxResurrect}/bin/cleanup-tmux-resurrect'
 
 # Plugin Configs
 				set -g @catppuccin_flavor 'mocha'
@@ -68,14 +99,8 @@
 				bind s choose-tree -Zs
 				bind g display-popup -E -w 90% -h 80% -d "#{pane_current_path}" "${shellPath}"
 				bind G display-popup -E -w 90% -h 80% -d "#{pane_current_path}" "jj st; exec ${shellPath}"
-				set-option -g status-interval 5
 				set-option -g automatic-rename on
 				set-option -g automatic-rename-format '#{b:pane_current_path}'
-				set -g status-right '%a %d-%m-%Y   %H:%M#[default]'
-				set -g status-position top
-				set -g window-status-current-format '  #I: #W'
-				set -g window-status-format '  #I: #W'
-				set -g window-status-last-style 'fg=white, bg=black'
 			'';
 		};
 	in {

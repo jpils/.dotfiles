@@ -70,6 +70,7 @@
 						".local/share/nvim/harpoon"
 						".local/share/uv"
 						".local/share/zoxide"
+						".local/state/tmux"
 						".local/state/wireplumber"
 						{
 							directory = ".gnupg";
