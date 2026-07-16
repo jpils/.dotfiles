@@ -22,6 +22,7 @@
 			self.nixosModules.gaming
 			self.nixosModules.ghostty
 			self.nixosModules.niri
+			self.nixosModules.noctalia
 			self.nixosModules.neovim
 			self.nixosModules.cursor
 			self.nixosModules.tmux-nu

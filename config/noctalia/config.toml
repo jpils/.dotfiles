@@ -1,0 +1,139 @@
+[audio]
+enable_overdrive = true
+
+[backdrop]
+blur_intensity = 0.0
+tint_intensity = 0.0
+
+[bar]
+order = [ "Default", "SystemMonitor" ]
+
+    [bar.Default]
+    background_opacity = 0.79999998211860657
+    capsule = true
+    capsule_border = "outline"
+    capsule_fill = "on_hover"
+    capsule_opacity = 0.4999999888241291
+    capsule_padding = 7.0
+    capsule_thickness = 0.84999998472630978
+    center = []
+    end = [ "media", "notifications", "clipboard", "network", "bluetooth", "battery", "volume", "brightness", "group:g1" ]
+    font_family = "Iosevka"
+    font_weight = 400
+    margin_edge = 3
+    margin_ends = 3
+    position = "left"
+    start = [ "workspaces" ]
+
+        [[bar.Default.capsule_group]]
+        border = "outline"
+        enabled = true
+        fill = "on_hover"
+        id = "g1"
+        members = [ "clock", "date" ]
+        opacity = 0.5
+        padding = 7.0
+
+    [bar.SystemMonitor]
+    auto_hide = true
+    background_opacity = 0.79999998211860657
+    capsule = true
+    capsule_border = "outline"
+    capsule_fill = "on_hover"
+    capsule_opacity = 0.4999999888241291
+    capsule_padding = 24.0
+    capsule_thickness = 0.84999998472630978
+    center = [ "cpu", "temp", "ram", "network_rx", "network_tx", "power_profile" ]
+    enabled = true
+    end = []
+    font_family = "Iosevka"
+    font_weight = 400
+    layer = "overlay"
+    margin_edge = 3
+    margin_ends = 900
+    reserve_space = false
+    start = []
+
+[calendar]
+enabled = true
+refresh_minutes = 5
+
+    [calendar.account.personal_google]
+    name = "Personal Calendar"
+    type = "google"
+
+    [calendar.account.shared_google]
+    name = "Shared Calendar"
+    type = "google"
+
+[keybinds]
+down = [ "Ctrl+n" ]
+up = [ "Ctrl+p" ]
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-2" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "DP-2"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_password_hint = true
+
+[nightlight]
+temperature_day = 6700
+temperature_night = 4500
+
+[shell.panel]
+open_near_click_control_center = true
+
+[shell.screenshot]
+directory = "/home/jay/Pictures/Screenshots"
+
+[theme]
+builtin = "Nord"
+community_palette = "Catppuccin Macchiato Lavender"
+
+[wallpaper]
+directory = "/home/jay/nixconf/al-scheduler-noctaliav5/config/Wallpapers"
+
+    [wallpaper.default]
+    path = "/home/jay/nixconf/al-scheduler-noctaliav5/config/Wallpapers/mandelbrot.png"
+
+    [wallpaper.last]
+    path = "/home/jay/nixconf/al-scheduler-noctaliav5/config/Wallpapers/mandelbrot.png"
+
+[widget.brightness]
+scroll_step = 2
+
+[widget.date]
+format = "{:%d %b}"
+
+[widget.media]
+hide_when_no_media = true
+
+[widget.workspaces]
+hide_when_empty = true

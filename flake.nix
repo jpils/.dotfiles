@@ -7,6 +7,11 @@
 
 		wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
+		noctalia-v5 = {
+			url = "github:noctalia-dev/noctalia/v5.0.0-beta2";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
 		disko.url = "github:nix-community/disko";
 		disko.inputs.nixpkgs.follows = "nixpkgs";
 

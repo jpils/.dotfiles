@@ -20,6 +20,7 @@
 			# system programs
 			self.nixosModules.ghostty
 			self.nixosModules.niri
+			self.nixosModules.noctalia
 			self.nixosModules.neovim
 			self.nixosModules.nvidia-30
 			self.nixosModules.cursor

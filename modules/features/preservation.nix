@@ -67,9 +67,11 @@
 						".local/share/geary"
 						".local/share/goa-1.0"
 						".local/share/keyrings"
+						".local/share/noctalia"
 						".local/share/nvim/harpoon"
 						".local/share/uv"
 						".local/share/zoxide"
+						".local/state/noctalia"
 						".local/state/tmux"
 						".local/state/wireplumber"
 						{
