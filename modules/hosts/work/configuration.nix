@@ -72,6 +72,11 @@
 			};
 		};
 
+		programs.noctalia.systemMonitorBar = {
+			outputWidth = 3840;
+			widthPercent = 30;
+		};
+
 		environment.sessionVariables = {
 			NIXOS_OZONE_WL = "1";
 		};
