@@ -39,13 +39,45 @@
 				noctaliaExe = config.noctaliaExe;
 				zenExe = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
 				ghosttyExe = lib.getExe selfPkgs.ghostty;
+				niriExe = lib.getExe pkgs.niri;
 				outputKey = config.outputMonitorName;
+				noctaliaBarEmptyWorkspace = pkgs.writeShellScriptBin "noctalia-bar-empty-workspace" ''
+					set -eu
+
+					update() {
+						focused_id="$(${niriExe} msg -j workspaces 2>/dev/null \
+							| ${lib.getExe pkgs.jq} -r '.[] | select(.is_focused == true) | .id' 2>/dev/null \
+							| head -n1 || true)"
+
+						if [ -z "$focused_id" ] || [ "$focused_id" = null ]; then
+							return 0
+						fi
+
+						window_count="$(${niriExe} msg -j windows 2>/dev/null \
+							| ${lib.getExe pkgs.jq} --argjson ws "$focused_id" '[.[] | select(.workspace_id == $ws)] | length' 2>/dev/null \
+							|| printf 1)"
+
+						if [ "$window_count" = 0 ]; then
+							${noctaliaExe} msg bar-auto-hide-set off Default >/dev/null 2>&1 || true
+						else
+							${noctaliaExe} msg bar-auto-hide-set on Default >/dev/null 2>&1 || true
+						fi
+					}
+
+					sleep 2
+					update
+
+					${niriExe} msg -j event-stream 2>/dev/null | while IFS= read -r _; do
+						update
+					done
+				'';
 			in {
 				prefer-no-csd = _: {};
 				hotkey-overlay.skip-at-startup = true;
 
 				spawn-at-startup = [
 					noctaliaExe
+					(lib.getExe noctaliaBarEmptyWorkspace)
 					(lib.getExe (
 					    pkgs.writeShellScriptBin "wallpaper"
 					    "${lib.getExe pkgs.swaybg} -i ${self.wallpaper} -m fill"

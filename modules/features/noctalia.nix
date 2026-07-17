@@ -12,6 +12,7 @@ let
 			order = [ "Default" "SystemMonitor" ];
 
 			Default = {
+				auto_hide = true;
 				background_opacity = 0.75;
 				capsule = true;
 				capsule_border = "outline";
@@ -20,14 +21,14 @@ let
 				capsule_padding = 7.0;
 				capsule_thickness = 0.84999998472630978;
 				center = [];
-				end = [ "media" "notifications" "clipboard" "network" "bluetooth" "volume" "brightness" "group:g1" ];
+				end = [ "media" "notifications" "network" "bluetooth" "volume" "brightness" "group:g1" ];
 				font_family = "Iosevka";
 				font_weight = 400;
 				margin_edge = 3;
 				margin_ends = 3;
 				layer = "overlay";
 				position = "left";
-				reserve_space = true;
+				reserve_space = false;
 				start = [ "workspaces" ];
 
 				capsule_group = [
@@ -45,6 +46,7 @@ let
 
 			SystemMonitor = {
 				auto_hide = true;
+				show_on_workspace_switch = false;
 				background_opacity = 0.75;
 				capsule = true;
 				capsule_border = "outline";
@@ -124,6 +126,7 @@ let
 		};
 
 		shell = {
+			clipboard_enabled = false;
 			panel.open_near_click_control_center = true;
 			screenshot.directory = "~/Pictures/Screenshots";
 		};
@@ -283,6 +286,9 @@ in {
 				# GUI overrides live here and win over packaged config.toml.
 				# Remove them so the wrapped Noctalia package is authoritative.
 				rm -f /home/jay/.local/state/noctalia/settings.toml
+
+				# Disable/remove Noctalia clipboard history state.
+				rm -rf /home/jay/.local/state/noctalia/clipboard
 			'';
 		};
 	};
