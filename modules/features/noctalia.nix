@@ -12,7 +12,7 @@ let
 			order = [ "Default" "SystemMonitor" ];
 
 			Default = {
-				background_opacity = 0.79999998211860657;
+				background_opacity = 0.5;
 				capsule = true;
 				capsule_border = "outline";
 				capsule_fill = "on_hover";
@@ -251,7 +251,7 @@ in {
 				};
 				minWidth = lib.mkOption {
 					type = lib.types.ints.positive;
-					default = 760;
+					default = 900;
 					description = "Minimum visible SystemMonitor bar width in logical pixels, used so small laptop outputs do not truncate widgets.";
 				};
 				outputWidth = lib.mkOption {
