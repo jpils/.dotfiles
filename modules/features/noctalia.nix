@@ -12,7 +12,7 @@ let
 			order = [ "Default" "SystemMonitor" ];
 
 			Default = {
-				background_opacity = 0.5;
+				background_opacity = 0.75;
 				capsule = true;
 				capsule_border = "outline";
 				capsule_fill = "on_hover";
@@ -25,7 +25,9 @@ let
 				font_weight = 400;
 				margin_edge = 3;
 				margin_ends = 3;
+				layer = "overlay";
 				position = "left";
+				reserve_space = true;
 				start = [ "workspaces" ];
 
 				capsule_group = [
@@ -43,7 +45,7 @@ let
 
 			SystemMonitor = {
 				auto_hide = true;
-				background_opacity = 0.79999998211860657;
+				background_opacity = 0.75;
 				capsule = true;
 				capsule_border = "outline";
 				capsule_fill = "on_hover";
