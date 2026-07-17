@@ -26,12 +26,17 @@
 				default = 1.0;
 				description = "Fractional scaling value";
 			};
+			noctaliaExe = lib.mkOption {
+				type = lib.types.str;
+				default = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia;
+				description = "Noctalia executable to spawn from Niri.";
+			};
 		};
 
 		config = {
 			settings = let 
 				selfPkgs = self.packages.${pkgs.stdenv.hostPlatform.system};
-				noctaliaExe = lib.getExe selfPkgs.noctalia;
+				noctaliaExe = config.noctaliaExe;
 				zenExe = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
 				ghosttyExe = lib.getExe selfPkgs.ghostty;
 				outputKey = config.outputMonitorName;
@@ -281,6 +286,7 @@
 					outputMonitorName = cfg.outputMonitorName;
 					outputMode = cfg.outputMode;
 					outputScaling = cfg.outputScaling;
+					noctaliaExe = lib.getExe config.programs.noctalia.package;
 				};
 			};
 		};

@@ -79,6 +79,7 @@
 			outputMonitorName = "DP-2";
 			outputMode = "2560x1440@165";
 		};
+		programs.noctalia.systemMonitorBar.widthPercent = 30;
 
 		environment.sessionVariables = {
 			NIXOS_OZONE_WL = "1";
