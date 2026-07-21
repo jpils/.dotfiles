@@ -73,7 +73,8 @@
 		};
 
 		programs.noctalia.systemMonitorBar = {
-			outputWidth = 3840;
+			# Niri/Noctalia use logical pixels; 3840 physical at scale 1.25 => 3072 logical.
+			outputWidth = 3072;
 			widthPercent = 30;
 		};
 
