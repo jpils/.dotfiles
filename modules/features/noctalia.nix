@@ -26,7 +26,9 @@ let
 				font_weight = 400;
 				margin_edge = 3;
 				margin_ends = 3;
-				layer = "overlay";
+				# Top layer is hidden by niri behind focused fullscreen windows.
+				# Overlay layer stays above games and steals edge pointer input.
+				layer = "top";
 				position = "left";
 				reserve_space = false;
 				start = [ "workspaces" ];
@@ -59,7 +61,9 @@ let
 				end = [];
 				font_family = "Iosevka";
 				font_weight = 400;
-				layer = "overlay";
+				# Top layer is hidden by niri behind focused fullscreen windows.
+				# Overlay layer stays above games and steals edge pointer input.
+				layer = "top";
 				margin_edge = 3;
 				margin_ends = 900;
 				reserve_space = false;

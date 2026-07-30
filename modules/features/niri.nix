@@ -256,6 +256,11 @@
 						open-on-workspace = "4";
 					}
 					{
+						matches = [{ app-id = "^steam_app_.*"; }];
+						open-on-workspace = "4";
+						open-fullscreen = true;
+					}
+					{
 						matches = [{ app-id = "^org.gnome.Nautilus"; }];
 						open-floating = true;
 					}

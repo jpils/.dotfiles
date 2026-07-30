@@ -28,6 +28,7 @@
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
+			self.nixosModules.scanner
 			self.nixosModules.swaylock-effects
 
 			# user programs
