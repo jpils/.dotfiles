@@ -41,7 +41,9 @@
 			pinentryPackage = pkgs.pinentry-gnome3;
 			settings = {
 				default-cache-ttl = 600;
-				max-cache-ttl = 7200;
+				max-cache-ttl = 600;
+				default-cache-ttl-ssh = 600;
+				max-cache-ttl-ssh = 600;
 			};
 		};
 
