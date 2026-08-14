@@ -22,52 +22,75 @@
 	    device = "/dev/disk/by-id/ata-Samsung_SSD_850_PRO_512GB_S2BENWAJ604299M";
 	    type = "disk";
 
-	    content.type = "gpt";
+	    content = {
+	      type = "gpt";
 
-	    content.partitions.boot = {
-	      name = "boot";
-	      size = "1M";
-	      type = "EF02";
-	    };
+	      partitions = {
+		boot = {
+		  name = "boot";
+		  size = "1M";
+		  type = "EF02";
+		};
 
-	    content.partitions.esp = {
-	      name = "ESP";
-	      size = "1G";
-	      type = "EF00";
+		esp = {
+		  name = "ESP";
+		  size = "1G";
+		  type = "EF00";
 
-	      content = {
-		type = "filesystem";
-		format = "vfat";
-		mountpoint = "/boot";
-	      };
-	    };
-
-	    content.partitions.swap = {
-	      size = "16G";
-
-	      content = {
-		type = "swap";
-		resumeDevice = true;
-	      };
-	    };
-
-	    content.partitions.root = {
-	      name = "root";
-	      size = "100%";
-
-	      content = {
-		type = "btrfs";
-		extraArgs = ["-f"];
-
-		subvolumes = {
-		  "/persistent" = {
-		    mountOptions = ["subvol=persistent" "noatime"];
-		    mountpoint = "/persistent";
+		  content = {
+		    type = "filesystem";
+		    format = "vfat";
+		    mountpoint = "/boot";
 		  };
+		};
 
-		  "/nix" = {
-		    mountOptions = ["subvol=nix" "noatime"];
-		    mountpoint = "/nix";
+		root = {
+		  name = "root";
+		  size = "100%";
+
+		  content = {
+		    type = "luks";
+		    name = "cryptroot";
+		    settings.allowDiscards = true;
+
+		    content = {
+		      type = "lvm_pv";
+		      vg = "vg";
+		    };
+		  };
+		};
+	      };
+	    };
+	  };
+
+	  disko.devices.lvm_vg.vg = {
+	    type = "lvm_vg";
+
+	    lvs = {
+	      swap = {
+		size = "16G";
+		content = {
+		  type = "swap";
+		  resumeDevice = true;
+		};
+	      };
+
+	      root = {
+		size = "100%FREE";
+		content = {
+		  type = "btrfs";
+		  extraArgs = ["-f"];
+
+		  subvolumes = {
+		    "/persistent" = {
+		      mountOptions = ["subvol=persistent" "noatime"];
+		      mountpoint = "/persistent";
+		    };
+
+		    "/nix" = {
+		      mountOptions = ["subvol=nix" "noatime"];
+		      mountpoint = "/nix";
+		    };
 		  };
 		};
 	      };

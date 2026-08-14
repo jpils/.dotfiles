@@ -85,6 +85,8 @@
 			yubioath-flutter
 			yubikey-manager
 			xournalpp
+			tor-browser
+			proton-vpn
 			zip
 
 			inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
