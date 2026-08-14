@@ -8,7 +8,7 @@
 		packages.zsh = inputs.wrapper-modules.wrappers.zsh.wrap {
 			inherit pkgs;
 			
-			extraPackages = with pkgs; [
+			runtimePkgs = with pkgs; [
 				fzf
 				fd
 				starship

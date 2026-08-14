@@ -24,7 +24,7 @@
     packages.nushell = inputs.wrapper-modules.wrappers.nushell.wrap {
       inherit pkgs;
 
-      extraPackages = with pkgs; [
+      runtimePkgs = with pkgs; [
         fzf 
 		fd 
 		starship 

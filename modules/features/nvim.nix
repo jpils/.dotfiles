@@ -40,7 +40,7 @@
 
 			mergedConfig = {
 				plugins = lib.concatMap (m: m.plugins or []) modules;
-				extraPackages = lib.concatMap (m: m.extraPackages or []) modules;
+				runtimePkgs = lib.concatMap (m: m.extraPackages or []) modules;
 				lua = lib.concatStringsSep "\n" (map (m: m.lua or "") modules);
 			};
 
@@ -48,7 +48,7 @@
 			packages.neovim = inputs.wrapper-modules.wrappers.neovim.wrap {
 				inherit pkgs;
 				specs.allPlugins = mergedConfig.plugins;
-				extraPackages = mergedConfig.extraPackages;
+				runtimePkgs = mergedConfig.runtimePkgs;
 				settings.config_directory = pkgs.writeTextDir "init.lua" mergedConfig.lua;
 			};		
 		};
