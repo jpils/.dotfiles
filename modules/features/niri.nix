@@ -8,7 +8,7 @@
 			};
 			keyboardVariant = lib.mkOption {
 				type = lib.types.str;
-				default = "us";
+				default = "";
 				description = "Keyboard variant for Niri";
 			};
 			outputMonitorName = lib.mkOption {
@@ -292,7 +292,7 @@
 			};
 			keyboardVariant = lib.mkOption {
 				type = lib.types.str;
-				default = "us";
+				default = "";
 				description = "Keyboard variant for Niri";
 			};
 			outputMonitorName = lib.mkOption {

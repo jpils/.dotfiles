@@ -4,6 +4,7 @@ let
 		audio.enable_overdrive = true;
 
 		backdrop = {
+			enabled = false;
 			blur_intensity = 0.0;
 			tint_intensity = 0.0;
 		};
