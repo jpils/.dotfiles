@@ -30,6 +30,7 @@
 			self.nixosModules.gnome-integration
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
+			self.nixosModules.userSecurity
 			self.nixosModules.scanner
 			self.nixosModules.swaylock-effects
 
@@ -37,6 +38,11 @@
 			self.nixosModules.user-apps
 			self.nixosModules.scientific-suite
 		];
+
+		jay.userSecurity.sudo.u2f = {
+			enable = true;
+			unixFallback = true;
+		};
 
 		boot.initrd.systemd.enable = true;
 
