@@ -41,6 +41,7 @@
 
       security.sudo.extraConfig = ''
         Defaults timestamp_timeout=0
+        Defaults lecture=never
       '';
     };
   };

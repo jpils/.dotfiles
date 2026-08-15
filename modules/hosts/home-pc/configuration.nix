@@ -41,7 +41,7 @@
 
 		jay.userSecurity.sudo.u2f = {
 			enable = true;
-			unixFallback = true;
+			unixFallback = false;
 		};
 
 		boot.initrd.systemd.enable = true;

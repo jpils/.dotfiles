@@ -12,7 +12,6 @@
 				directories = [
 					"/etc/nixos"
 					"/etc/ssh"
-					"/var/db/sudo"
 					"/var/lib/systemd"
 					"/var/lib/bluetooth"
 					"/var/lib/cups"
