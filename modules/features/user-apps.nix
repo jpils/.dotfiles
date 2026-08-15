@@ -87,7 +87,6 @@
 			yubioath-flutter
 			yubikey-manager
 			xournalpp
-			tor-browser
 			proton-vpn
 			zip
 
