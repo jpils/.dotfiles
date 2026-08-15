@@ -1,0 +1,7 @@
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_sk_github_yk1
+  IdentityFile ~/.ssh/id_ed25519_sk_github_yk_nfc
+  IdentitiesOnly yes
+  AddKeysToAgent no

@@ -144,8 +144,27 @@
 			jack.enable = true;
 		};
 
-		hardware.bluetooth.enable = true;
-		hardware.bluetooth.powerOnBoot = false;
+		hardware.bluetooth = {
+			enable = true;
+			powerOnBoot = false;
+			settings = {
+				General = {
+					Experimental = true;
+					FastConnectable = true;
+				};
+				Policy = {
+					AutoEnable = false;
+				};
+			};
+		};
+
+		boot.extraModprobeConfig = ''
+			options btusb enable_autosuspend=0
+		'';
+
+		services.udev.extraRules = ''
+			ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", ATTR{idProduct}=="1825", ATTR{power/control}="on"
+		'';
 
 		systemd.user.services.mpris-proxy = {
 			description = "Mpris proxy";

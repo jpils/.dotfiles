@@ -37,6 +37,11 @@
 			self.nixosModules.scientific-suite
 		];
 
+		jay.userSecurity.sudo.u2f = {
+			enable = true;
+			unixFallback = false;
+		};
+
 		services.logind.settings.Login = {
 			HandleLidSwitch = "hibernate";
 			HandleLidSwitchExternalPower = "suspend-then-hibernate";

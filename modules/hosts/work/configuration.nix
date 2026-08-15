@@ -37,6 +37,11 @@
 			self.nixosModules.scientific-suite
 		];
 
+		jay.userSecurity.sudo.u2f = {
+			enable = true;
+			unixFallback = false;
+		};
+
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
 
