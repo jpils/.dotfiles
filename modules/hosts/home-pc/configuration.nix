@@ -39,9 +39,16 @@
 			self.nixosModules.scientific-suite
 		];
 
-		jay.userSecurity.sudo.u2f = {
-			enable = true;
-			unixFallback = false;
+		jay.userSecurity = {
+			sudo.u2f = {
+				enable = true;
+				unixFallback = false;
+			};
+
+			ssh.hosts."github.com".identities = [
+				"github_yk1"
+				"github_yk_nfc"
+			];
 		};
 
 		boot.initrd.systemd.enable = true;
