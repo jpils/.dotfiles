@@ -150,6 +150,10 @@
     };
 
     config = lib.mkMerge [
+      {
+        users.mutableUsers = false;
+      }
+
       (lib.mkIf config.jay.userSecurity.sudo.u2f.enable {
         environment.systemPackages = with pkgs; [ pam_u2f yubikey-manager ];
 
