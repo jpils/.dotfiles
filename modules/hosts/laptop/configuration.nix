@@ -66,6 +66,14 @@
 			hibernate = true;
 		};
 
+		boot.initrd.systemd.enable = true;
+
+		boot.initrd.luks.devices.cryptroot = {
+			device = "/dev/disk/by-partlabel/disk-main-root";
+			crypttabExtraOpts = [
+				"fido2-device=auto"
+			];
+		};
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
 

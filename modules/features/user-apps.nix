@@ -5,6 +5,30 @@
 			${pkgs.libnotify}/bin/notify-send "SSH / YubiKey" "$1"
 			exit 0
 		'';
+
+		zathurarc = pkgs.writeText "zathurarc" ''
+			set default-bg "${self.theme.bg}"
+			set default-fg "${self.theme.fg}"
+			set statusbar-bg "${self.theme.bg}"
+			set statusbar-fg "${self.theme.fg}"
+			set inputbar-bg "${self.theme.bg}"
+			set inputbar-fg "${self.theme.fg}"
+			set notification-bg "${self.theme.selectionBg}"
+			set notification-fg "${self.theme.fg}"
+			set notification-error-bg "${self.theme.base01}"
+			set notification-error-fg "${self.theme.fg}"
+			set notification-warning-bg "${self.theme.base03}"
+			set notification-warning-fg "${self.theme.bg}"
+			set highlight-color "${self.theme.base03}"
+			set highlight-active-color "${self.theme.base06}"
+			set completion-bg "${self.theme.bg}"
+			set completion-fg "${self.theme.fg}"
+			set completion-highlight-bg "${self.theme.selectionBg}"
+			set completion-highlight-fg "${self.theme.fg}"
+			recolor true
+			set recolor-lightcolor "${self.theme.bg}"
+			set recolor-darkcolor "${self.theme.fg}"
+		'';
 	in {
 		services.pcscd.enable = true;
 
@@ -57,6 +81,11 @@
 			install -m 600 -o jay -g users ${../../config/pi/themes/jay-dark.json} /home/jay/.pi/agent/themes/jay-dark.json
 		'';
 
+		system.activationScripts.zathura-config.text = ''
+			install -d -m 700 -o jay -g users /home/jay/.config/zathura
+			install -m 600 -o jay -g users ${zathurarc} /home/jay/.config/zathura/zathurarc
+		'';
+
 	    users.users.jay.packages = with pkgs; [
 			baobab
 			browserpass
@@ -81,6 +110,7 @@
 			sushi
 			telegram-desktop
 			tree
+			zathura
 			vesktop
 			vlc
 			wl-mirror

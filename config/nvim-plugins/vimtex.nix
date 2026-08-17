@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+	extraPackages = with pkgs; [
+		texliveFull
+		zathura
+	];
+
 	plugins = with pkgs.vimPlugins; [
 		vimtex
 	];
