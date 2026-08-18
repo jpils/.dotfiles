@@ -129,6 +129,12 @@
               secretName = "ssh_id_ed25519_sk_github_yk_nfc";
               publicKeySource = ../../config/ssh/id_ed25519_sk_github_yk_nfc.pub;
             };
+
+            github_yk2 = {
+              fileName = "id_ed25519_sk_github_yk2";
+              secretName = "ssh_id_ed25519_sk_github_yk2";
+              publicKeySource = ../../config/ssh/id_ed25519_sk_github_yk2.pub;
+            };
           };
           description = "SSH private keys/FIDO handles to restore from SOPS.";
         };
@@ -139,7 +145,7 @@
             "github.com" = {
               hostName = "github.com";
               user = "git";
-              identities = [ "github_yk1" "github_yk_nfc" ];
+              identities = [ "github_yk1" "github_yk2" "github_yk_nfc" ];
               identitiesOnly = true;
               addKeysToAgent = "no";
             };

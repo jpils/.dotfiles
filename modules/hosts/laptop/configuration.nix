@@ -40,11 +40,11 @@
 		jay.userSecurity = {
 			sudo.u2f = {
 				enable = true;
-				unixFallback = false;
+				unixFallback = true;
 			};
 
 			ssh.hosts."github.com".identities = [
-				"github_yk1"
+				"github_yk2"
 				"github_yk_nfc"
 			];
 		};
