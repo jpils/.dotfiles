@@ -6,72 +6,96 @@
 	  ];
 
 	  fileSystems."/nix".neededForBoot = true;
-	  fileSystems."/persistent".neededForBoot = true; # sometimes needed too
+	  fileSystems."/persistent".neededForBoot = true;
 
 	  disko.devices.nodev = {
-		"/" = {
-		  fsType = "tmpfs";
-		  mountOptions = [
-			"size=25%"
-			"mode=755"
-		  ];
-		};
+	    "/" = {
+	      fsType = "tmpfs";
+	      mountOptions = [
+		"size=25%"
+		"mode=755"
+	      ];
+	    };
 	  };
 
 	  disko.devices.disk.main = {
-		device = "/dev/disk/by-id/nvme-KINGSTON_SNVS1000G_50026B778460B74A";
-		type = "disk";
+	    device = "/dev/disk/by-id/nvme-KINGSTON_SNVS1000G_50026B778460B74A";
+	    type = "disk";
 
-		content.type = "gpt";
+	    content = {
+	      type = "gpt";
 
-		content.partitions.boot = {
+	      partitions = {
+		boot = {
 		  name = "boot";
 		  size = "1M";
 		  type = "EF02";
 		};
 
-		content.partitions.esp = {
+		esp = {
 		  name = "ESP";
 		  size = "1G";
 		  type = "EF00";
 
 		  content = {
-			type = "filesystem";
-			format = "vfat";
-			mountpoint = "/boot";
+		    type = "filesystem";
+		    format = "vfat";
+		    mountpoint = "/boot";
+			mountOptions = [ "umask=0077" ];
 		  };
 		};
 
-		content.partitions.swap = {
-		  size = "32G";
-
-		  content = {
-			type = "swap";
-			resumeDevice = true;
-		  };
-		};
-
-		content.partitions.root = {
+		root = {
 		  name = "root";
 		  size = "100%";
 
 		  content = {
-			type = "btrfs";
-			extraArgs = ["-f"];
+		    type = "luks";
+		    name = "cryptroot";
+		    settings.allowDiscards = true;
 
-			subvolumes = {
-			  "/persistent" = {
-				mountOptions = ["subvol=persistent" "noatime"];
-				mountpoint = "/persistent";
-			  };
-
-			  "/nix" = {
-				mountOptions = ["subvol=nix" "noatime"];
-				mountpoint = "/nix";
-			  };
-			};
+		    content = {
+		      type = "lvm_pv";
+		      vg = "vg";
+		    };
 		  };
 		};
+	      };
+	    };
+	  };
+
+	  disko.devices.lvm_vg.vg = {
+	    type = "lvm_vg";
+
+	    lvs = {
+	      swap = {
+		size = "32G";
+		content = {
+		  type = "swap";
+		  resumeDevice = true;
+		};
+	      };
+
+	      root = {
+		size = "100%FREE";
+		content = {
+		  type = "btrfs";
+		  extraArgs = ["-f"];
+
+		  subvolumes = {
+		    "/persistent" = {
+		      mountOptions = ["subvol=persistent" "noatime"];
+		      mountpoint = "/persistent";
+		    };
+
+		    "/nix" = {
+		      mountOptions = ["subvol=nix" "noatime"];
+		      mountpoint = "/nix";
+		    };
+		  };
+		};
+	      };
+	    };
 	  };
 	};
 }

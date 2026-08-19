@@ -40,15 +40,23 @@
 		jay.userSecurity = {
 			sudo.u2f = {
 				enable = true;
-				unixFallback = false;
+				unixFallback = true;
 			};
 
 			ssh.hosts."github.com".identities = [
+				"github_yk2"
 				"github_yk_nfc"
-				"github_yk1"
 			];
 		};
 
+		boot.initrd.systemd.enable = true;
+
+		boot.initrd.luks.devices.cryptroot = {
+			device = "/dev/disk/by-partlabel/disk-main-root";
+			crypttabExtraOpts = [
+				"fido2-device=auto"
+			];
+		};
 		boot.loader.systemd-boot.enable = true;
 		boot.loader.efi.canTouchEfiVariables = true;
 
