@@ -31,6 +31,7 @@
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
 			self.nixosModules.userSecurity
+			self.nixosModules.userSsh
 			self.nixosModules.scanner
 			self.nixosModules.swaylock-effects
 
@@ -49,6 +50,7 @@
 				"github_yk1"
 				"github_yk_nfc"
 			];
+
 		};
 
 		boot.initrd.systemd.enable = true;

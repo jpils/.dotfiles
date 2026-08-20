@@ -29,6 +29,7 @@
 			self.nixosModules.nix-ld
 			self.nixosModules.sops
 			self.nixosModules.userSecurity
+			self.nixosModules.userSsh
 			self.nixosModules.scanner
 			self.nixosModules.swaylock-effects
 
