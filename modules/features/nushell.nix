@@ -19,7 +19,6 @@
     zoxide-init = pkgs.runCommand "zoxide.nu" { } "${pkgs.zoxide}/bin/zoxide init nushell > $out";
     carapace-init = pkgs.runCommand "carapace.nu" { } "${pkgs.carapace}/bin/carapace _carapace nushell > $out";
 	fzf_style = "--height 40% --layout reverse --border";
-	ws = pkgs.writeShellScriptBin "ws" (builtins.readFile ../../config/nushell/ws.sh);
   in {
     packages.nushell = inputs.wrapper-modules.wrappers.nushell.wrap {
       inherit pkgs;
@@ -33,7 +32,6 @@
 		sesh 
 		carapace
 		yazi
-		ws
       ];
 
       env = { KEYTIMEOUT = "20"; };
