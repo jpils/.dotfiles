@@ -97,6 +97,7 @@
 			gnome-calendar    
 			gnome-text-editor
 			gnupg
+			libreoffice
 			loupe
 			mission-center
 			mpv
@@ -104,20 +105,20 @@
 			networkmanagerapplet
 			pass
 			pi-coding-agent
+			proton-vpn
 			spotify
 			sshfs
 			step-cli
 			sushi
 			telegram-desktop
 			tree
-			zathura
 			vesktop
 			vlc
 			wl-mirror
-			yubioath-flutter
-			yubikey-manager
 			xournalpp
-			proton-vpn
+			yubikey-manager
+			yubioath-flutter
+			zathura
 			zip
 
 			inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
